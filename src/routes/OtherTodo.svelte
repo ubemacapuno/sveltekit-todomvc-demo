@@ -20,20 +20,20 @@
             <header class="header">
                 <h1>todos</h1>
                 <input class="new-todo" placeholder="What needs to be done?" type="text" bind:value={textInput}>
-                {#if textInput.length > 0}
-                    <button on:click={addToDo}>Add</button>
-                {/if}
             </header>
             <section class="main">
-                <!-- <input id="toggle-all" class="toggle-all" type="checkbox">
-                <label for="toggle-all">Mark all as complete</label> -->
+                {#if textInput.length > 0}
+                    <button on:click={addToDo}>Add Todo</button>
+                {/if}
+                <input id="toggle-all" class="toggle-all" type="checkbox">
+                <label for="toggle-all">Mark all as complete</label>
                 {#each toDoList as toDo, index}
                     <div class="view">
                         {#if toDo.editing}
                             <input class="toggle" type="text" bind:value={toDo.content}>
                         {:else}
-                            <input type="checkbox" bind:checked={toDo.checked}>
-                            <h4>{toDo.content}</h4>
+                            <input type="checkbox" class="toggle" bind:checked={toDo.checked}>
+                            <h4 class="todo-cd">{toDo.content}</h4>
                         {/if}
                         <div>
                             {#if toDo.editing}
