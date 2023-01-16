@@ -18,8 +18,15 @@
 
         //Make a store for local storage to store the todo info
         //@see https://rodneylab.com/using-local-storage-sveltekit/
-            //Make the default value an empty array
-            //initialValue is going to pull from browser, otherwise
+            //Make the default value an empty array ?
+            //There should be a 'status' on each todo: Active 'true' or Active 'false'
+            //If running in the browser (aka: local storage is present), localStorageStatus will equal getItem('status')
+            //Otherwise, the status should default to active set to true
+
+        // Shape of the todo:
+            //unique id
+            //content of the todo
+            //status of the todo (default status is "active")
 
 
 //on:click functions for delete
