@@ -76,7 +76,9 @@ use:enhance={form_action({ message: 'Company creation' }, async (res) => await i
     .card{
         display: flex;
     }
-    p {
-        padding: 1rem;
+
+    input {
+        margin: 1rem;
+        padding: 0.5rem;
     }
 </style>
