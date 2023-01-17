@@ -34,7 +34,7 @@ use:enhance={form_action({ message: 'Company creation' }, async (res) => await i
     >
             <input type="hidden" name="_id" value={todo._id} />
             <input type="hidden" name="completed" value={"True"} />
-            <button color="secondary" type="submit">🟠</button>
+            <button color="secondary" type="submit">⚪</button>
         </form>
     {:else}
         <form
