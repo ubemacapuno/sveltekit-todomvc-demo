@@ -1,4 +1,6 @@
 import type { PageServerLoad } from './$types'
+//@see https://kit.svelte.dev/docs/load#page-data
+
 import { todos } from '$db/models/todos/collection'
 import { Todos } from '$db/models/todos/actions'
 import { fix_pojo } from '$utilities/fix_pojo'
@@ -8,6 +10,7 @@ export const load = async function () {
 	const all_todos = await todos.find({}, { sort: { order: 1 } }).toArray()
 
 	//Query for todos with "completed: "False""
+	//BAD PRACTICE DON'T ACTUALLY DO THIS.
 	//TODO: refactor completed to boolean type
 	const incomplete_todos = await todos.countDocuments({completed: "False"})
 

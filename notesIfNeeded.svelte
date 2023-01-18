@@ -4,6 +4,7 @@
     import { invalidateAll } from '$app/navigation'
     import { form_action } from '$lib/forms/enhance'
     import type { PageData } from './$types'
+	import { todo } from '$lib/stores/stores';
         
     export let data: PageData;
     $: ({ todos } = data)
@@ -17,35 +18,36 @@
 
     $: filteredTodos = todos.filter((todo)=>{
         if(filter === 'complete'){
-            return todo.completed === "True"
+            return todo.completed
         }
         if(filter === 'incomplete'){
-            return todo.completed === "False"
+            return !todo.completed
         }
         return true
     })
 
     //Change all todos to be "complete"
     //Map argument, use spread operator (...)
-    const toggleAll = (e) => {
-      const checked = e.target.checked
-      return todos.map(todo => ({
-        ...todo,
-        completed: !checked
-      }))
-    }
-    let isChecked = false
+    function toggleAll(e){
+        //Take TODOs
+        //Map over TODOs
+        const checked = e.target.checked
+        todos.map(todo=>{
+            return {
+                ...todo,
+                completed: !checked
+            }
 
+        })
+    }
+
+    // let isChecked = false
     // <input type="checked" bind:checked={isChecked} on:change={(e) => toggleAll(e.target.checked)} />
 
     //Filtering
     //TODO: lookup $ svelte
     $: inactive = todos.filter((todo)=>{
-        return todo.completed === "False"
-    })
-
-    $: active = todos.filter((todo) => {
-        return todo.completed === "True"
+        return !todo.completed
     })
     
 </script>
@@ -62,8 +64,8 @@
             >
             <!--TODO: Use input type checkbox for true/false-->
                 <input class="new-todo" placeholder="What needs to be done?" type="text" name="content" />
-                <input type="hidden" name="completed" value="False" />
-                <!-- <input type="checkbox" hidden name="completed" checked /> -->
+                <!-- <input type="hidden" name="completed" value="False" /> -->
+                <input type="checkbox" hidden name="completed" />
             </form>
 
             <section class="main">
@@ -72,6 +74,8 @@
                 <ul class="todo-list">
                     <li>
                         {#each todos as todo}
+                            <!-- <p>{todo.content}</p> -->
+                            <!-- <p>{todo.completed}</p> -->
                             <label class="should-be-a-div">
                                 {#if todo.completed === "False"}
                                     <form
@@ -80,7 +84,7 @@
                                     use:enhance={form_action({ message: 'Todo update' }, async (res) => await invalidateAll())}
                                 >
                                         <input type="hidden" name="_id" value={todo._id} />
-                                        <input type="hidden" name="completed" value="True" />
+                                        <input type="hidden" name="completed" value={"True"} />
                                         <button color="secondary" type="submit">⚪</button>
                                     </form>
             
@@ -91,7 +95,7 @@
                                     use:enhance={form_action({ message: 'Todo update' }, async (res) => await invalidateAll())}
                                 >
                                         <input type="hidden" name="_id" value={todo._id} />
-                                        <input type="hidden" name="completed" value="False" />
+                                        <input type="hidden" name="completed" value={"False"} />
                                         <button color="secondary" type="submit">✅</button>
                                     </form>
                                 {/if}
@@ -106,11 +110,13 @@
                                     <!-- <button class="update" color="secondary" type="submit">Update</button> -->
                                 </form>
                             
-                                <!-- TODO: come up with way to use use:enhance here! -->
                                 <form
                                     method="POST"
                                     action="?/delete"
-                                    use:enhance
+                                    use:enhance={form_action(
+                                        { message: 'Todo deletion' },
+                                        async (res) => await invalidateAll()
+                                    )}
                                 >
                                     <input type="hidden" name="_id" value={todo._id} />
                                     <button color="error" type="submit">🗑️</button>
