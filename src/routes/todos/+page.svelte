@@ -9,8 +9,6 @@
     $: ({ todos } = data)
     $: ({incompleteTodos} = data)
 
-    let textInput = ""
-
     const clearFormInput = async (event) => {
         event.target.reset();
     }
@@ -27,7 +25,7 @@
             use:enhance={form_action({ message: 'Todo creation' }, async (res) => await invalidateAll())}
             on:submit|preventDefault={clearFormInput}
             >
-                <input class="new-todo" placeholder="What needs to be done?" type="text" name="content" bind:value={textInput} />
+                <input class="new-todo" placeholder="What needs to be done?" type="text" name="content" />
                 <input type="hidden" name="completed" value="False" />
             </form>
 
@@ -59,7 +57,7 @@
                                 >
                                         <input type="hidden" name="_id" value={todo._id} />
                                         <input type="hidden" name="completed" value={"False"} />
-                                        <button color="secondary" type="submit">✔️</button>
+                                        <button color="secondary" type="submit">✅</button>
                                     </form>
                                 {/if}
                                 <form
@@ -83,7 +81,7 @@
                                     )}
                                 >
                                     <input type="hidden" name="_id" value={todo._id} />
-                                    <button color="error" type="submit">❌</button>
+                                    <button color="error" type="submit">🗑️</button>
                                 </form>
                             </label>
                         {/each}
