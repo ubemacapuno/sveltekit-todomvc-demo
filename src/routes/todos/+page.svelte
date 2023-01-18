@@ -7,6 +7,7 @@
         
     export let data: PageData;
     $: ({ todos } = data)
+    $: ({incompleteTodos} = data)
 
     let textInput = ""
 
@@ -89,21 +90,27 @@
                     </li>
                 </ul>
             </section>
-            <footer class="footer">
-				<span class="todo-count"></span>
-				<ul class="filters">
-					<li>
-						<a href="#/">All</a>
-					</li>
-					<li>
-						<a href="#/active">Active</a>
-					</li>
-					<li>
-						<a href="#/completed">Completed</a>
-					</li>
-				</ul>
-				<button class="clear-completed">Clear completed</button>
-			</footer>
+            {#if todos.length > 0}
+                <footer class="footer">
+                    {#if incompleteTodos === 1}
+                        <span class="todo-count">{incompleteTodos} item left</span>
+                    {:else if incompleteTodos === 0 || incompleteTodos > 1}
+                        <span class="todo-count">{incompleteTodos} items left</span>
+                    {/if}
+                    <ul class="filters">
+                        <li>
+                            <a href="#/">All</a>
+                        </li>
+                        <li>
+                            <a href="#/active">Active</a>
+                        </li>
+                        <li>
+                            <a href="#/completed">Completed</a>
+                        </li>
+                    </ul>
+                    <button class="clear-completed">Clear completed</button>
+                </footer>
+            {/if}
         </section>
     </body>
 </main>
