@@ -3,5 +3,5 @@
 	import OtherTodo from "./OtherTodo.svelte";
 </script>
 <!-- <NewItem /> -->
-<OtherTodo />
+<!-- <OtherTodo /> -->
 <slot />
