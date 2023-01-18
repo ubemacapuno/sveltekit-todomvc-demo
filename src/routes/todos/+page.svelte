@@ -11,7 +11,6 @@
     let textInput = ""
 
     const clearFormInput = async (event) => {
-        const formData = new FormData(event.target)
         event.target.reset();
     }
     
@@ -143,7 +142,6 @@
         border-radius: 12px;
         cursor: pointer;
         transition-duration: 0.2s;
-
     }
 
     .update:hover {
