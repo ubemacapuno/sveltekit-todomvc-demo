@@ -1,4 +1,4 @@
-import { form_toast } from '$lib/stores/toast'
+// import { form_toast } from '$lib/stores/toast'
 import type { SubmitFunction } from '@sveltejs/kit'
 
 // ? function that sends a toast message on form submission
@@ -13,7 +13,7 @@ export const form_action: ({
 ) => {
 	return ({ data }) => {
 		return ({ result }): void => {
-			if (message) form_toast(result, message)
+			// if (message) form_toast(result, message)
 
 			if (callback && result?.data) callback(result.data)
 		}
