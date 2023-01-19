@@ -71,7 +71,7 @@
 				<label for="toggle-all">Mark all as complete</label>
                 <ul class="todo-list">
                     <li>
-                        {#each todos as todo}
+                        {#each filteredTodos as todo}
                             <label class="should-be-a-div">
                                 {#if todo.completed === "False"}
                                     <form
@@ -129,13 +129,13 @@
                     {/if}
                     <ul class="filters">
                         <li>
-                            <a href="#/">All</a>
+                            <button on:click={() => filter = 'all'}>All</button>
                         </li>
                         <li>
-                            <a href="#/active">Active</a>
+                            <button on:click={() => filter = 'incomplete'}>Active</button>
                         </li>
                         <li>
-                            <a href="#/completed">Completed</a>
+                            <button on:click={() => filter = 'complete'}>Completed</button>
                         </li>
                     </ul>
                     <button class="clear-completed">Clear completed</button>
