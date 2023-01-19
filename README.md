@@ -1,7 +1,8 @@
 ## TodoMVC SvelteKit Demo
 
 This is my (unfinished) attempt for <a href="https://www.meetup.com/Phoenix-ReactJS/">Phoenix React JS Meetup</a> at creating a TodoMVC app using SvelteKit/TS/MongoDB (no local storage). My focus was on using SvelteKit <a href="https://kit.svelte.dev/docs/form-actions">Form Actions</a> and <a href="https://kit.svelte.dev/docs/load">Loading Data</a>, utilizing CRUD operations without a Node server. 
-NOTE: I didn't exactly follow the instructions, or even get all the functionality working, but it is a functioning Todo app at the very least!
+
+I didn't exactly follow the instructions, or even get all the functionality working, but it is a functioning Todo app at the very least!
 
  <tr>
     <td width="100%"  style="align:center;" valign="top">
