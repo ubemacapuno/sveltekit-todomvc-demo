@@ -36,6 +36,28 @@ export const Todos: Actions = {
 		if (updated_path.ok) return updated_path.value
 	},
 
+	updateAllToComplete: async function ({ locals, request }) {
+
+		// Get the data from the request
+		const data = await get_form_data_object(request)
+		const updated_path = await todos
+			.updateMany({}, { $set: {completed: "True"}}, { returnDocument: 'after' })
+			.catch(log_error)
+
+		if (updated_path.ok) return updated_path.value
+	},
+
+	updateAllToIncomplete: async function ({ locals, request }) {
+
+		// Get the data from the request
+		const data = await get_form_data_object(request)
+		const updated_path = await todos
+		.updateMany({}, { $set: {completed: "False"}}, { returnDocument: 'after' })
+			.catch(log_error)
+
+		if (updated_path.ok) return updated_path.value
+	},
+
 	delete: async function ({ locals, request }) {
 		// if (!has_role(locals, 'admin')) return fail(401)
 
@@ -45,4 +67,15 @@ export const Todos: Actions = {
 
 		if (updated_path.ok) return updated_path.value
 	},
+
+	deleteCompleted: async function ({ locals, request }) {
+		// if (!has_role(locals, 'admin')) return fail(401)
+
+		const data = await get_form_data_object(request)
+
+		const updated_path = await todos.deleteMany({completed: "True"}).catch(log_error)
+
+		if (updated_path.ok) return updated_path.value
+	},
 }
+

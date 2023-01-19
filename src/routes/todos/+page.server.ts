@@ -24,5 +24,7 @@ export const actions = {
 	create: Todos.create,
 	update: Todos.update,
 	delete: Todos.delete,
-	updateTrue: Todos.updateTrue,
+	deleteCompleted: Todos.deleteCompleted,
+	updateAllToComplete: Todos.updateAllToComplete,
+	updateAllToIncomplete: Todos.updateAllToIncomplete
 }
