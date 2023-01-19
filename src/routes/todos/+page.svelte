@@ -160,25 +160,27 @@
 						<button class="clear-completed" color="error" type="submit">Clear completed</button>
 					</form>
 				</footer>
+                <section class="update-all-toggle">
+                    <form method="POST" action="?/updateAllToComplete" use:enhance>
+                        <button
+                            class="clear-completed {hideMarkAllIncomplete}"
+                            color="error"
+                            type="submit"
+                            on:click={toggleMarkAll}>Mark all complete✅✅✅</button
+                        >
+                    </form>
+                    <!-- content here -->
+                    <form method="POST" action="?/updateAllToIncomplete" use:enhance>
+                        <button
+                            class="clear-completed {hideMarkAllComplete}"
+                            color="error"
+                            type="submit"
+                            on:click={toggleMarkAll}>Mark all incomplete 🙅‍♂️🙅‍♂️🙅‍♂️</button
+                        >
+                    </form>
+                </section>
 			{/if}
 		</section>
-        <form method="POST" action="?/updateAllToComplete" use:enhance>
-            <button
-                class="clear-completed {hideMarkAllIncomplete}"
-                color="error"
-                type="submit"
-                on:click={toggleMarkAll}>Mark all complete ✅✅✅</button
-            >
-        </form>
-        <!-- content here -->
-        <form method="POST" action="?/updateAllToIncomplete" use:enhance>
-            <button
-                class="clear-completed {hideMarkAllComplete}"
-                color="error"
-                type="submit"
-                on:click={toggleMarkAll}>Mark all incomplete 🙅‍♂️🙅‍♂️🙅‍♂️</button
-            >
-        </form>
 	</body>
 </main>
 
@@ -222,6 +224,10 @@
 	.update:hover {
 		background-color: rgb(196, 52, 0);
 	}
+
+    .update-all-toggle {
+        margin-top: 1rem;
+    }
 
 	.hidden {
 		display: none;
