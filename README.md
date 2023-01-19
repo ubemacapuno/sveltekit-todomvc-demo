@@ -1,6 +1,7 @@
 ## TodoMVC SvelteKit Demo
 
 This is my (unfinished) attempt for <a href="https://www.meetup.com/Phoenix-ReactJS/">Phoenix React JS Meetup</a> at creating a TodoMVC app using SvelteKit/TS/MongoDB (no local storage). My focus was on using SvelteKit <a href="https://kit.svelte.dev/docs/form-actions">Form Actions</a> and <a href="https://kit.svelte.dev/docs/load">Loading Data</a>, utilizing CRUD operations without a Node server. 
+NOTE: I didn't exactly follow the instructions, or even get all the functionality working, but it is a functioning Todo app at the very least!
 
  <tr>
     <td width="100%"  style="align:center;" valign="top">
@@ -14,7 +15,7 @@ This is my (unfinished) attempt for <a href="https://www.meetup.com/Phoenix-Reac
 
 SvelteKit/TS/MongoDB
 
-Install the dependencies either using NPM/Yarn/PNPM:
+## Install the dependencies either using NPM/Yarn/PNPM:
 
 Using NPM:
 
@@ -45,10 +46,11 @@ $ pnpm i
 # Start development server
 $ pnpm run dev
 ```
+Open http://127.0.0.1:5173/ to view it in the browser.
 
 ## Things to add:
 - Create a `.env` file and add the following:
-  - MONGO_URL= `your database URI (Needed for connection to MongoDB database)` 
+  - MONGO_URL= your database URI (Needed for connection to MongoDB database)
 
 ## Lessons Learned:
 - How to hit a MongoDB database using SvelteKit hooks.server.ts and page.server.ts to get data to the viewer in +page.svelte
