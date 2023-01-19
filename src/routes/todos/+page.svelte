@@ -16,8 +16,8 @@
 	let hideMarkAllComplete = 'hidden';
 	let hideMarkAllIncomplete = '';
 	let filter: 'all' | 'complete' | 'incomplete' = 'all';
-	
-    const toggleMarkAll = () => {
+
+	const toggleMarkAll = () => {
 		if (hideMarkAllComplete === 'hidden') {
 			hideMarkAllComplete = '';
 			hideMarkAllIncomplete = 'hidden';
@@ -36,29 +36,6 @@
 		}
 		return true;
 	});
-
-	// //Change all todos to be "complete"
-	// //Map argument, use spread operator (...)
-	// const toggleAll = (e) => {
-	//   const checked = e.target.checked
-	//   return todos.map(todo => ({
-	//     ...todo,
-	//     completed: !checked
-	//   }))
-	// }
-	// let isChecked = false
-
-	// // <input type="checked" bind:checked={isChecked} on:change={(e) => toggleAll(e.target.checked)} />
-
-	// //Filtering
-	// //TODO: lookup $ svelte
-	// $: inactive = todos.filter((todo)=>{
-	//     return todo.completed === "False"
-	// })
-
-	// $: active = todos.filter((todo) => {
-	//     return todo.completed === "True"
-	// })
 </script>
 
 <main>
@@ -82,7 +59,7 @@
 
 			<section class="main">
 				<!-- <input id="toggle-all" class="toggle-all" type="checkbox" />
-				<label for="toggle-all">Mark all as complete</label> -->       
+				<label for="toggle-all">Mark all as complete</label> -->
 				<ul class="todo-list">
 					<li>
 						{#each filteredTodos as todo}
@@ -160,25 +137,25 @@
 						<button class="clear-completed" color="error" type="submit">Clear completed</button>
 					</form>
 				</footer>
-                <section class="update-all-toggle">
-                    <form method="POST" action="?/updateAllToComplete" use:enhance>
-                        <button
-                            class="clear-completed {hideMarkAllIncomplete}"
-                            color="error"
-                            type="submit"
-                            on:click={toggleMarkAll}>Mark all complete✅✅✅</button
-                        >
-                    </form>
-                    <!-- content here -->
-                    <form method="POST" action="?/updateAllToIncomplete" use:enhance>
-                        <button
-                            class="clear-completed {hideMarkAllComplete}"
-                            color="error"
-                            type="submit"
-                            on:click={toggleMarkAll}>Mark all incomplete 🙅‍♂️🙅‍♂️🙅‍♂️</button
-                        >
-                    </form>
-                </section>
+				<section class="update-all-toggle">
+					<form method="POST" action="?/updateAllToComplete" use:enhance>
+						<button
+							class="clear-completed {hideMarkAllIncomplete}"
+							color="error"
+							type="submit"
+							on:click={toggleMarkAll}>Mark all complete✅✅✅</button
+						>
+					</form>
+					<!-- content here -->
+					<form method="POST" action="?/updateAllToIncomplete" use:enhance>
+						<button
+							class="clear-completed {hideMarkAllComplete}"
+							color="error"
+							type="submit"
+							on:click={toggleMarkAll}>Mark all incomplete 🙅‍♂️🙅‍♂️🙅‍♂️</button
+						>
+					</form>
+				</section>
 			{/if}
 		</section>
 	</body>
@@ -225,9 +202,9 @@
 		background-color: rgb(196, 52, 0);
 	}
 
-    .update-all-toggle {
-        margin-top: 1rem;
-    }
+	.update-all-toggle {
+		margin-top: 1rem;
+	}
 
 	.hidden {
 		display: none;
