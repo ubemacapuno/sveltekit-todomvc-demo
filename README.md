@@ -9,6 +9,11 @@ I didn't follow the instructions for the typical TodoMVC, but this app is a func
             <img src="https://github.com/ubemacapuno/images-for-github-readme/blob/main/sveltekit-todo.gif?raw=true" width="100%"  alt="CAPA Tracker demo animation."/>
     </td>
   </tr>
+   <tr>
+    <td width="100%"  style="align:center;" valign="top">
+            <img src="https://github.com/ubemacapuno/images-for-github-readme/blob/main/temp_image_20230119_213051_f6b8854d-a14f-4123-be72-4b537ae14acc.jpeg?raw=true" width="100%"  alt="CAPA Tracker demo animation."/>
+    </td>
+  </tr>
 
 ## How It's Made:
 
