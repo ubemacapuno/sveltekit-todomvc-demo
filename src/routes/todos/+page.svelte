@@ -1,32 +1,32 @@
 <script lang="ts">
 	import '../styles.css';
 	import { enhance } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
-	import { form_action } from '$lib/forms/enhance';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	$: ({ todos } = data);
-	$: ({ incompleteTodos } = data);
+	$: ({ todos, incompleteTodos, completeTodos } = data);
 
-	const clearFormInput = async (event) => {
-		event.target.reset();
-	};
-
-	let hideMarkAllComplete = 'hidden';
-	let hideMarkAllIncomplete = '';
 	let filter: 'all' | 'complete' | 'incomplete' = 'all';
+	let allSelected = "selected-filter"
+	let activeSelected = ""
+	let completedSelected = ""
 
-	const toggleMarkAll = () => {
-		if (hideMarkAllComplete === 'hidden') {
-			hideMarkAllComplete = '';
-			hideMarkAllIncomplete = 'hidden';
-		} else {
-			hideMarkAllComplete = 'hidden';
-			hideMarkAllIncomplete = '';
+	let tabSelected = (filter: string) =>{
+		if(filter === "all"){
+			activeSelected = ""
+			completedSelected = ""
+			allSelected = "selected-filter"
+		}else if(filter === "complete"){ 
+			allSelected = ""
+			activeSelected = ""
+			completedSelected = "selected-filter"
+		}else if(filter === "incomplete"){
+			allSelected = ""
+			completedSelected = ""
+			activeSelected = "selected-filter"
 		}
-	};
-
+	}
+	
 	$: filteredTodos = todos.filter((todo) => {
 		if (filter === 'complete') {
 			return todo.completed === 'True';
@@ -36,6 +36,11 @@
 		}
 		return true;
 	});
+	
+	const clearFormInput = async (event) => {
+		event.target.reset();
+	};
+
 </script>
 
 <main>
@@ -45,21 +50,15 @@
 			<form
 				method="POST"
 				action="?/create"
-				use:enhance={form_action(
-					{ message: 'Todo creation' },
-					async (res) => await invalidateAll()
-				)}
+				use:enhance
 				on:submit|preventDefault={clearFormInput}
 			>
 				<!--TODO: Use input type checkbox for true/false-->
 				<input class="new-todo" placeholder="What needs to be done?" type="text" name="content" />
 				<input type="hidden" name="completed" value="False" />
-				<!-- <input type="checkbox" hidden name="completed" checked /> -->
 			</form>
 
 			<section class="main">
-				<!-- <input id="toggle-all" class="toggle-all" type="checkbox" />
-				<label for="toggle-all">Mark all as complete</label> -->
 				<ul class="todo-list">
 					<li>
 						{#each filteredTodos as todo}
@@ -68,10 +67,7 @@
 									<form
 										method="POST"
 										action="?/update"
-										use:enhance={form_action(
-											{ message: 'Todo update' },
-											async (res) => await invalidateAll()
-										)}
+										use:enhance
 									>
 										<input type="hidden" name="_id" value={todo._id} />
 										<input type="hidden" name="completed" value="True" />
@@ -81,10 +77,7 @@
 									<form
 										method="POST"
 										action="?/update"
-										use:enhance={form_action(
-											{ message: 'Todo update' },
-											async (res) => await invalidateAll()
-										)}
+										use:enhance
 									>
 										<input type="hidden" name="_id" value={todo._id} />
 										<input type="hidden" name="completed" value="False" />
@@ -94,15 +87,10 @@
 								<form
 									method="POST"
 									action="?/update"
-									use:enhance={form_action(
-										{ message: 'Todo update' },
-										async (res) => await invalidateAll()
-									)}
+									use:enhance
 								>
 									<input type="hidden" name="_id" value={todo._id} />
 									<input class="current-todo" type="text" name="content" value={todo.content} />
-									<!-- <input type="text" name="completed" value={todo.completed} /> -->
-									<!-- <button class="update" color="secondary" type="submit">Update</button> -->
 								</form>
 
 								<!-- TODO: come up with way to use use:enhance here! -->
@@ -124,37 +112,39 @@
 					{/if}
 					<ul class="filters">
 						<li>
-							<button on:click={() => (filter = 'all')}>All</button>
+							<button id={allSelected} on:click={() => (filter = 'all', tabSelected(filter))}>All</button>
 						</li>
 						<li>
-							<button on:click={() => (filter = 'incomplete')}>Active</button>
+							<button id={activeSelected} on:click={() => (filter = 'incomplete', tabSelected(filter))}>Active</button>
 						</li>
 						<li>
-							<button on:click={() => (filter = 'complete')}>Completed</button>
+							<button id={completedSelected} on:click={() => (filter = 'complete', tabSelected(filter))}>Completed</button>
 						</li>
 					</ul>
-					<form method="POST" action="?/deleteCompleted" use:enhance>
-						<button class="clear-completed" color="error" type="submit">Clear completed</button>
-					</form>
+					{#if completeTodos > 0}
+						<form method="POST" action="?/deleteCompleted" use:enhance>
+							<button class="clear-completed" color="error" type="submit">Clear completed</button>
+						</form>
+					{/if}
 				</footer>
 				<section class="update-all-toggle">
-					<form method="POST" action="?/updateAllToComplete" use:enhance>
-						<button
-							class="clear-completed {hideMarkAllIncomplete}"
-							color="error"
+					{#if completeTodos !== todos.length}
+						<form method="POST" action="?/updateAllToComplete" use:enhance>
+							<button
+							class="clear-completed"
 							type="submit"
-							on:click={toggleMarkAll}>Mark all complete✅✅✅</button
-						>
-					</form>
-					<!-- content here -->
-					<form method="POST" action="?/updateAllToIncomplete" use:enhance>
-						<button
-							class="clear-completed {hideMarkAllComplete}"
-							color="error"
-							type="submit"
-							on:click={toggleMarkAll}>Mark all incomplete 🙅‍♂️🙅‍♂️🙅‍♂️</button
-						>
-					</form>
+							>Mark all complete ✅✅✅</button
+							>
+						</form>
+					{:else}
+						<form method="POST" action="?/updateAllToIncomplete" use:enhance>
+							<button
+								class="clear-completed"
+								type="submit"
+								>Mark all incomplete ⚪⚪⚪</button
+							>
+						</form>
+					{/if}
 				</section>
 			{/if}
 		</section>
@@ -183,30 +173,13 @@
 		color: inherit;
 	}
 
-	.update {
-		background-color: orangered;
-		border: none;
-		color: white;
-		padding: 0.5rem 1rem;
-		margin: 0.25rem 0;
-		text-align: center;
-		text-decoration: none;
-		display: inline-block;
-		font-size: 16px;
-		border-radius: 12px;
-		cursor: pointer;
-		transition-duration: 0.2s;
-	}
-
-	.update:hover {
-		background-color: rgb(196, 52, 0);
+	#selected-filter {
+		font-weight: bold;
+		color: orangered;
 	}
 
 	.update-all-toggle {
 		margin-top: 1rem;
 	}
 
-	.hidden {
-		display: none;
-	}
 </style>

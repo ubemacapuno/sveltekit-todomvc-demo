@@ -13,8 +13,6 @@ import { todos } from './collection'
 
 export const Todos: Actions = {
 	create: async function ({ locals, request }) {
-		// Check if user has the ability to edit this todo
-		// if (!has_role(locals, 'admin')) return fail(401)
 
 		const data = await get_form_data_object(request)
 		const insert_data = prepare_data_for_insert<Todo>(data, data.name)
@@ -30,6 +28,8 @@ export const Todos: Actions = {
 		// Get the data from the request
 		const data = await get_form_data_object(request)
 		const updated_path = await todos
+			//to get the updated doc when performing an update operation on one doc, use findOneAndUpdate() and in the options object, set returnDocument property to 'after'
+			//@#see https://stackoverflow.com/questions/24747189/update-and-return-document-in-mongodb
 			.findOneAndUpdate({ _id: data._id }, { $set: data }, { returnDocument: 'after' })
 			.catch(log_error)
 
