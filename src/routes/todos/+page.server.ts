@@ -1,5 +1,8 @@
 //JS disabled? No prob. Load function is all rendered server-side.
+//Often, a page will need to load some data before it can be rendered! That's what +page.server.ts is for
 //Data is fetched server-side ONLY in ".server.ts" files, so information is not revealed client-side
+
+//@see https://kit.svelte.dev/docs/routing#page-page-server-js
 //@see https://kit.svelte.dev/docs/load#page-data
 import type { PageServerLoad } from './$types'
 
