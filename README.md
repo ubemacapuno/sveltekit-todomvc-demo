@@ -43,7 +43,7 @@ $ yarn
 $ yarn dev
 ```
 
-Using Yarn:
+Using PNPM:
 
 ```bash
 # Install dependencies
