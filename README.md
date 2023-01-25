@@ -19,7 +19,7 @@ I didn't follow the instructions for the typical TodoMVC, and there are a lot of
 
 **Tech used:** 
 
-SvelteKit/TS/MongoDB
+<a href="https://kit.svelte.dev/">SvelteKit</a>, <a href="https://www.typescriptlang.org/">TypeScript</a>, <a href="https://www.mongodb.com/">MongoDB</a>.
 
 ## Install the dependencies either using NPM/Yarn/PNPM:
 
